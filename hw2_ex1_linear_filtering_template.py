@@ -1,3 +1,6 @@
+# Image Analysis Homework 2 ex 1
+# Nina Eldridge
+
 """ 1 Linear filtering """
 
 # Imports
