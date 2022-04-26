@@ -20,13 +20,12 @@ plt.show()
 # 1.1
 def boxfilter(n):
     # this function returns a box filter of size nxn
-    box_filter = np.matrix(np.zeros((n, n)))
-    return box_filter.fill(1 / (n ** 2))
+    box_filter = np.array((n**2) * [1/(n**2)]).reshape((n,n))
+    return box_filter
 
 # 1.2
 # Implement full convolution
 def myconv2(image, filt):
-    pass
     # This function performs a 2D convolution between image and filt, image being a 2D image. This
     # function should return the result of a 2D convolution of these two images. DO
     # NOT USE THE BUILT IN SCIPY CONVOLVE within this function. You should code your own version of the
@@ -37,18 +36,18 @@ def myconv2(image, filt):
     # OUTPUTS
     # img_filtered    : 2D filtered image, of size (m+k-1)x(n+l-1)
 
-    ### your code should go here ###
-
-    #return filtered_img
+    return np.sum(np.multiply(image, filt))
 
 
 # 1.3
 # create a boxfilter of size 10 and convolve this filter with your image - show the result
-bsize = 10
+bsize = 3
 # creates the boxfilter with the function
 my_boxfilter = boxfilter(bsize)
+print(my_boxfilter)
 # convolves the image with the created boxfilter
 convolved_image = myconv2(img, my_boxfilter)
+plt.imshow(convolved_image)
 
 # 1.4
 # create a function returning a 1D gaussian kernel
