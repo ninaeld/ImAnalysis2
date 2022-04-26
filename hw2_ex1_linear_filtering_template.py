@@ -20,14 +20,13 @@ plt.show()
 # 1.1
 def boxfilter(n):
     # this function returns a box filter of size nxn
-
-    ### your code should go here ###
-
-    return box_filter
+    box_filter = np.matrix(np.zeros((n, n)))
+    return box_filter.fill(1 / (n ** 2))
 
 # 1.2
 # Implement full convolution
 def myconv2(image, filt):
+    pass
     # This function performs a 2D convolution between image and filt, image being a 2D image. This
     # function should return the result of a 2D convolution of these two images. DO
     # NOT USE THE BUILT IN SCIPY CONVOLVE within this function. You should code your own version of the
@@ -40,19 +39,21 @@ def myconv2(image, filt):
 
     ### your code should go here ###
 
-    return filtered_img
+    #return filtered_img
 
 
 # 1.3
 # create a boxfilter of size 10 and convolve this filter with your image - show the result
 bsize = 10
-
-### your code should go here ###
-
+# creates the boxfilter with the function
+my_boxfilter = boxfilter(bsize)
+# convolves the image with the created boxfilter
+convolved_image = myconv2(img, my_boxfilter)
 
 # 1.4
 # create a function returning a 1D gaussian kernel
 def gauss1d(sigma, filter_length=20):
+    pass
     # INPUTS
     # @ sigma         : sigma of gaussian distribution
     # @ filter_length : integer denoting the filter length, default is 10
@@ -61,12 +62,13 @@ def gauss1d(sigma, filter_length=20):
 
     ### your code should go here ###
 
-    return gauss_filter
+    #return gauss_filter
 
 
 # 1.5
 # create a function returning a 2D gaussian kernel
 def gauss2d(sigma, filter_size=20):
+    pass
     # INPUTS
     # @ sigma         : sigma of gaussian distribution
     # @ filter_size   : integer denoting the filter size, default is 10
@@ -75,7 +77,7 @@ def gauss2d(sigma, filter_size=20):
 
     ### your code should go here ###
 
-    return gauss2d_filter
+    #return gauss2d_filter
 
 # Display a plot using sigma = 3
 sigma = 3
@@ -86,6 +88,7 @@ sigma = 3
 # 1.6
 # Convoltion with gaussian filter
 def gconv(image, sigma):
+    pass
     # INPUTS
     # image           : 2d image
     # @ sigma         : sigma of gaussian distribution
@@ -94,7 +97,7 @@ def gconv(image, sigma):
 
     ### your code should go here ###
 
-    return img_filtered
+    #return img_filtered
 
 
 # run your gconv on the image for sigma=3 and display the result
@@ -118,7 +121,7 @@ size_range = np.arange(3, 100, 5)
 t1d = []
 t2d = []
 for size in size_range:
-
+    pass
     ### your code should go here ###
 
 
