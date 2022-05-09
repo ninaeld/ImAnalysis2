@@ -35,19 +35,54 @@ def myconv2(image, filt):
     # @ filt          : 1D or 2D filter of size kxl
     # OUTPUTS
     # img_filtered    : 2D filtered image, of size (m+k-1)x(n+l-1)
+    image_height, image_width = image.shape
+    #print("Shape of image is " +str(image.shape))
+    filter_height, filter_width = filt.shape
+    conv_image = image
 
-    return np.sum(np.multiply(image, filt))
+    # do the padding for zeros
+    added_columns = np.zeros(image_height)
+    # adds columns with zeros to either side of the image
+    for i in range(int(filter_width/2)):
+        conv_image = np.insert(conv_image, 0, added_columns, axis=1)
+        conv_image = np.insert(conv_image,conv_image.shape[1], added_columns, axis=1)
+    # add rows with zeros on top and bottom of image
+    added_rows = np.zeros(image_width+filter_width-1)
+    for j in range(int(filter_height/2)):
+        conv_image = np.vstack((added_rows, conv_image))
+        conv_image = np.vstack((conv_image, added_rows))
+
+    conv_height, conv_width = conv_image.shape
+    working_conv = conv_image.copy()
+    #print("Shape of working conv is " +str(working_conv.shape))
+    # create convolved image filled with zeros
+    #conv_image = np.zeros((image_width+filter_width-1, image_height+filter_height-1))
+    # s goes over the rows
+    for s in range((conv_height-filter_height)):
+        # t goes over the columns
+        for t in range(0, (conv_width-filter_width)):
+            # slices the part of the image that the filter is over
+            part_image = working_conv[s:(s+filter_height), t:(t+filter_width)]
+            #print(part_image.shape)
+            # applies the filter to the part of the image
+            value = np.sum(np.multiply(part_image, filt))
+            #print(value)
+            # updates the value at the right location in the picture
+            conv_image[s+(int(filter_height/2)), t+(int(filter_width/2))] = value
+
+    return conv_image
 
 
 # 1.3
-# create a boxfilter of size 10 and convolve this filter with your image - show the result
-bsize = 3
+# create a boxfilter of size 11 and convolve this filter with your image - show the result
+bsize = 11
 # creates the boxfilter with the function
 my_boxfilter = boxfilter(bsize)
-print(my_boxfilter)
 # convolves the image with the created boxfilter
 convolved_image = myconv2(img, my_boxfilter)
 plt.imshow(convolved_image)
+plt.title('box filtered image')
+plt.show()
 
 # 1.4
 # create a function returning a 1D gaussian kernel
@@ -125,9 +160,9 @@ for size in size_range:
 
 
 # plot the comparison of the time needed for each of the two convolution cases
-plt.plot(size_range, t1d, label='1D filtering')
+"""plt.plot(size_range, t1d, label='1D filtering')
 plt.plot(size_range, t2d, label='2D filtering')
 plt.xlabel('Filter size')
 plt.ylabel('Computation time')
 plt.legend(loc=0)
-plt.show()
+plt.show()"""
